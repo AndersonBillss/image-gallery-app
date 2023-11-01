@@ -1,0 +1,38 @@
+.main{
+  background-color: white;
+  height: 100%;
+  min-height: 100vh;
+}
+.nav{
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 5px darkcyan solid;
+  background-color: lightgrey;
+}
+
+.option{
+  color:darkcyan;
+  font-size: 36px;
+  font-weight: bold;
+  background-color: lightgrey;
+  flex-grow: 1;
+  text-align: center;
+}
+.selectedOption{
+  color:darkcyan;
+  font-size: 36px;
+  font-weight: bold;
+  background-color:lightsteelblue;
+  flex-grow: 1;
+  text-align: center;
+}
+.option:hover{
+  filter: brightness(95%);
+  cursor: pointer;
+}
+.option:active{
+  filter: brightness(105%);
+}
+.container{
+  display: flex;
+}
