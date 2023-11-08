@@ -22,7 +22,7 @@
   color:darkcyan;
   font-size: 36px;
   font-weight: bold;
-  background-color:lightsteelblue;
+  background-color:rgb(180, 180, 180);
   flex-grow: 1;
   text-align: center;
 }
@@ -33,6 +33,29 @@
 .option:active{
   filter: brightness(105%);
 }
-.container{
+
+.mainContent{
   display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  justify-self: center;
+  justify-content: center;
+  left: 50%;
+  right: 50%
+}
+.mainContentItem{
+  list-style-type: none;
+  background-color: lightsteelblue;
+  width: 300px;
+  height: 300px;
+  border: 3px rgba(0, 0, 0, 0.5) solid;
+  margin: 30px;
+}
+.container{
+  justify-content: center;
+}
+.image{
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
