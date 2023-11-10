@@ -2,19 +2,41 @@
 'use client'
 import React, { useState, useEffect, useReducer } from 'react';
 import styles from './page.module.css';
-
-
 const key = process.env.NEXT_PUBLIC_REACT_APP_API_KEY
-console.log(key)
+
+
+const initialState = {
+  selectedOptionIndex: 0,
+  optionsArray: [],
+  loadedContent: [],
+}
+
+const imageGalleryReducer = (state, action) => {
+  switch(action.type){
+      case 'INITIALSET':
+        return{
+          ...state,
+        optionsArray: action.payload[0],
+        loadedContent: action.payload[1]
+        }
+      
+      case 'SWITCHTABS':
+        return{
+          ...state,
+          selectedOptionIndex: action.key,
+          loadedContent: state.optionsArray[action.key].content
+        }
+    default:
+      return state
+  }
+}
 
 export default function Home() {
-  const [selectedOptionIndex, setSelectedOptionIndex] = useState(0);
-  const [optionsArray, setOptionsArray] = useState([]);
-  const [loadedContent, setLoadedContent] = useState([]);
+
+  const [state, dispatch] = useReducer(imageGalleryReducer, initialState)
 
 
-  const searchTermList = ['plants', 'river', 'mountians', 'airplane'];
-
+  const searchTermList = ['Tree', 'Waterfall', 'Water', 'Train'];
   useEffect(() => {
     const fetchImageData = async () => {
       const imageSet = [];
@@ -31,8 +53,9 @@ export default function Home() {
           console.error(`Error fetching images for ${search}:`, error);
         }
       }
-      setOptionsArray(imageSet);
-      setLoadedContent(imageSet[0].content);
+      dispatch({
+        type: 'INITIALSET', 
+        payload: [imageSet, imageSet[0].content]})
     };
 
     fetchImageData();
@@ -44,14 +67,14 @@ export default function Home() {
   }
 
   function NavOption(index) {
-    const isSelected = selectedOptionIndex === index;
+    const isSelected = state.selectedOptionIndex === index;
     return (
       <option
         key={index}
         className={isSelected ? styles.selectedOption : styles.option}
-        onClick={() => switchBetweenTabsHandler(index)}
+        onClick={() => dispatch({ type: 'SWITCHTABS', key: index})}
       >
-        {optionsArray[index].title}
+        {state.optionsArray[index].title}
       </option>
     );
   }
@@ -59,16 +82,16 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.nav}>
-        {optionsArray.map((option, index) => NavOption(index))}
+        {state.optionsArray.map((option, index) => NavOption(index))}
       </div>
-      {loadedContent && (
+      {state.loadedContent && (
         <ul className={styles.mainContent}>
-          {loadedContent.map((item, index) => (
+          {state.loadedContent.map((item, index) => (
             <li className={styles.mainContentItem} key={index}>
               <img
               className={styles.image}
               src={item}
-              alt={optionsArray[selectedOptionIndex].title}
+              alt={state.optionsArray[state.selectedOptionIndex].title}
               />
             </li>
           ))}

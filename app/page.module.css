@@ -17,6 +17,8 @@
   background-color: lightgrey;
   flex-grow: 1;
   text-align: center;
+  border-right: 3px rgba(128, 128, 128, 0.3) solid;
+  border-left: 3px rgba(128, 128, 128, 0.3) solid;
 }
 .selectedOption{
   color:darkcyan;
@@ -25,6 +27,8 @@
   background-color:rgb(180, 180, 180);
   flex-grow: 1;
   text-align: center;
+    border-right: 3px rgba(128, 128, 128, 0.3) solid;
+  border-left: 3px rgba(128, 128, 128, 0.3) solid;
 }
 .option:hover{
   filter: brightness(95%);
